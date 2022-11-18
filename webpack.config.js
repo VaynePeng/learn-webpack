@@ -5,7 +5,8 @@ module.exports = {
   entry: './src/main.js',
   output: {
     filename: 'bundle.js',
-    path: resolve(__dirname, 'dist')
+    path: resolve(__dirname, 'dist'),
+    clean: true // 每次打包前都会清空之前的内容
   },
   module: {
     // loader
@@ -33,6 +34,12 @@ module.exports = {
           dataUrlCondition: {
             maxSize: 50 * 1024 // 小于 50kb 会转化为 base64
           }
+        },
+        // 构建配置
+        generator: {
+          // hash 打包后的文件名
+          // ext 文件拓展名
+          filename: 'images/[hash][ext][query]' // 输入文件的位置和名称
         }
       }
     ]
