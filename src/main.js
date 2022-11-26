@@ -1,5 +1,5 @@
 import subtraction from './js/subtraction'
-import add from './js/add'
+import add from '@js/add'
 import './css/index.less'
 import './css/index.css'
 import './iconfont/iconfont.css'

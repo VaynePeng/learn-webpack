@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     filename: 'bundle.js',
-    path: resolve(__dirname, 'dist'),
+    path: resolve(__dirname, '../dist'),
     clean: true // 每次打包前都会清空之前的内容
   },
   module: {
@@ -61,9 +61,15 @@ module.exports = {
   plugins: [
     new ESLintPlugin(),
     new HTMLWebpackPlugin({
-      template: resolve(__dirname, 'public/index.html') // 模板
+      template: resolve(__dirname, '../public/index.html') // 模板
     })
   ],
+  resolve: {
+    alias: {
+      '@js': resolve(__dirname, '../src/js') 
+    },
+    extensions: ['.js', '.ts', '.json']
+  },
   devServer: {
     host: 'localhost',
     compress: true,
