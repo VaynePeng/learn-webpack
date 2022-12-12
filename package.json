@@ -5,7 +5,6 @@
   "main": "./src/main.js",
   "scripts": {
     "dev": "webpack server --config ./config/webpack.dev.js",
-    "server": "webpack server --config ./config/webpack.prod.js",
     "build": "webpack --config ./config/webpack.prod.js"
   },
   "keywords": [],
@@ -16,6 +15,7 @@
     "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.0",
     "css-loader": "^6.7.2",
+    "css-minimizer-webpack-plugin": "^4.2.2",
     "eslint": "^8.28.0",
     "eslint-webpack-plugin": "^3.2.0",
     "html-webpack-plugin": "^5.5.0",
@@ -29,6 +29,8 @@
     "webpack-dev-server": "^4.11.1"
   },
   "browserslist": [
-    "ie >= 8"
+    "last 1 version",
+    "> 1%",
+    "not dead"
   ]
 }

@@ -72,8 +72,9 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
-    compress: true,
-    port: 9000
-  }
+    port: 8080,
+    open: true
+  },
+  devtool: 'source-map'
 }
  

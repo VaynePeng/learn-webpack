@@ -1,10 +1,10 @@
 const { resolve } = require('path')
-const ESLintPlugin = require('eslint-webpack-plugin')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin') // html 自动引入
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') // css 分离
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin') // css 压缩
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/main.js',
   output: {
     filename: 'bundle.js',
@@ -25,11 +25,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [
-                  [
-                    'postcss-preset-env'
-                  ]
-                ]
+                plugins: [['postcss-preset-env']]
               }
             }
           }
@@ -45,11 +41,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [
-                  [
-                    'postcss-preset-env'
-                  ]
-                ]
+                plugins: [['postcss-preset-env']]
               }
             }
           },
@@ -61,7 +53,7 @@ module.exports = {
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 50 * 1024 // 小于 50kb 会转化为 base64
+            maxSize: 10 * 1024 // 小于 10kb 会转化为 base64
           }
         },
         // 构建配置
@@ -85,8 +77,12 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin()
+    ]
+  },
   plugins: [
-    new ESLintPlugin(),
     new MiniCssExtractPlugin(),
     new HTMLWebpackPlugin({
       template: resolve(__dirname, '../public/index.html') // 模板
@@ -98,9 +94,5 @@ module.exports = {
     },
     extensions: ['.js', '.ts', '.json']
   },
-  devServer: {
-    host: 'localhost',
-    compress: true,
-    port: 9000
-  }
+  devtool: 'source-map'
 }
