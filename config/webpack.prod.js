@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   entry: './src/main.js',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: resolve(__dirname, '../dist'),
     clean: true // 每次打包前都会清空之前的内容
   },
@@ -73,14 +73,22 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/, // 排除 node_modules
-        use: ['babel-loader']
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true, // 开启 babel 缓存
+          cacheCompression: false // 关闭缓存文件的压缩
+        }
       }
     ]
   },
   optimization: {
+    // 压缩
     minimizer: [
       new CssMinimizerPlugin()
-    ]
+    ],
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   plugins: [
     new MiniCssExtractPlugin(),

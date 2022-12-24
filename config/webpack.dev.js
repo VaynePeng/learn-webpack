@@ -54,27 +54,41 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/, // 排除 node_modules
-        use: ['babel-loader']
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true, // 开启 babel 缓存
+              cacheCompression: false // 关闭缓存文件的压缩
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new ESLintPlugin(),
+    new ESLintPlugin({
+      cache: true, // 开启缓存
+      cacheLocation: resolve(
+        __dirname,
+        '../node_modules/.cache/eslint-cache.json'
+      ) // 缓存地址
+    }),
     new HTMLWebpackPlugin({
       template: resolve(__dirname, '../public/index.html') // 模板
     })
   ],
   resolve: {
     alias: {
-      '@js': resolve(__dirname, '../src/js') 
+      '@js': resolve(__dirname, '../src/js')
     },
     extensions: ['.js', '.ts', '.json']
   },
   devServer: {
     host: 'localhost',
     port: 8080,
-    open: true
+    open: true,
+    hot: true // HMR默认开启
   },
-  devtool: 'source-map'
+  devtool: 'cheap-module-source-map'
 }
- 
